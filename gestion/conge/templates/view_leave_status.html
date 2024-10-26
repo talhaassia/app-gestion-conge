@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulter l'état d'une demande - Direction Régionale de l'Equipement et de l'Eau</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* Styles CSS */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body { min-height: 100vh; width: 100%; background: #f0f0f0; display: flex; align-items: flex-start; overflow-x: hidden; }
+    
+    .sidebar {
+      width: 200px;
+      background: #009579;
+      color: #fff;
+      padding: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      z-index: 1000;
+    }
+    .sidebar .organization {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar ul li {
+      margin-bottom: 10px;
+    }
+    .sidebar ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 16px;
+    }
+    .sidebar ul li a:hover {
+      text-decoration: underline;
+    }
+    
+    .top-bar {
+      background: #009579;
+      color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: calc(100% - 200px);
+      left: 200px;
+      top: 0;
+      z-index: 1000;
+    }
+    .top-bar .organization {
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .top-bar .logout {
+      font-size: 14px;
+      text-decoration: none;
+      color: #fff;
+    }
+    
+    .content {
+      margin-left: 200px;
+      width: calc(100% - 200px);
+      padding: 60px 20px 20px; /* Ajuster le padding pour s'adapter sous la barre fixée */
+    }
+    
+    .card {
+      background: #fff;
+      padding: 20px;
+      margin-top: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    table, th, td { border: 1px solid #ddd; }
+    th, td { padding: 12px; text-align: left; }
+    th { background: #009579; color: #fff; }
+    td { background: #f9f9f9; }
+    a { font-size: 16px; color: #009579; text-decoration: none; display: block; margin: 10px 0; text-align: center; }
+    a:hover { text-decoration: underline; }
+    
+    .welcome { font-weight: bold; font-size: 24px; margin-bottom: 10px; }
+    .welcome span { color: #009579; }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="organization">
+      Ministère de l'équipement et de l'eau
+    </div>
+    <ul>
+      <li><a href="{% url 'employe_home' %}">Accueil</a></li>
+      <li><a href="{% url 'create_leave_request' %}">Créer une demande de congé</a></li>
+      <li><a href="{% url 'view_leave_status' %}">Consulter l'état d'une demande</a></li>
+      <li><a href="{% url 'deconnexion' %}" class="logout">Déconnexion</a></li>
+    </ul>
+  </div>
+  <div class="content">
+    <div class="top-bar">
+      <div class="organization">
+        Direction Provinciale d'Errachidia
+      </div>
+      <a href="{% url 'change_password' %}" class="logout">Changer le mot de passe</a>
+    </div>
+    <div class="card">
+      <h1>Consulter l'état d'une demande</h1>
+      {% if leave_requests %}
+        <table>
+          <thead>
+            <tr>
+              <th>Date de Début</th>
+              <th>Date de Fin</th>
+              <th>Type de Congé</th>
+              <th>Motif</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for request in leave_requests %}
+              <tr>
+                <td>{{ request.date_debut }}</td>
+                <td>{{ request.date_fin }}</td>
+                <td>{{ request.type_conge }}</td>
+                <td>{{ request.motif }}</td>
+                <td>{{ request.statut }}</td>
+                <td>
+                  {% if request.statut == 'approved' %}
+                    <a href="{% url 'generate_leave_pdf' request.id %}" class="button">Télécharger PDF</a>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>Aucune demande trouvée.</p>
+      {% endif %}
+      <a href="{% url 'directeur_home' %}">Retour à l'accueil</a>
+    </div>
+  </div>
+</body>
+</html>

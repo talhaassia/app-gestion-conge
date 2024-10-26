@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des Congés - Direction Provinciale de l'Equipement et de l'Eau</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* Styles CSS */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body { min-height: 100vh; width: 100%; background: #f0f0f0; display: flex; justify-content: center; align-items: center; }
+    .container { display: flex; max-width: 1200px; margin: 0 auto; }
+    .sidebar { width: 200px; background: #009579; color: #fff; padding: 20px; position: fixed; top: 0; left: 0; height: 100%; }
+    .sidebar .organization { font-weight: bold; font-size: 18px; margin-bottom: 20px; }
+    .sidebar ul { list-style: none; padding: 0; }
+    .sidebar ul li { margin-bottom: 10px; }
+    .sidebar ul li a { text-decoration: none; color: #fff; font-size: 16px; }
+    .sidebar ul li a:hover { text-decoration: underline; }
+    .content { margin-left: 200px; width: calc(100% - 200px); padding: 20px; }
+    .top-bar { background: #009579; color: #fff; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+    .top-bar .organization { font-weight: bold; font-size: 18px; }
+    .top-bar .logout { font-size: 14px; text-decoration: none; color: #fff; }
+    .options .welcome { font-weight: bold; font-size: 24px; margin-bottom: 10px; }
+    .options .welcome span { color: #009579; }
+    .options ul { list-style: none; display: flex; }
+    .options ul li { margin-right: 20px; }
+    .options ul li a { text-decoration: none; color: #333; font-size: 16px; }
+    .options ul li a:hover { color: #009579; }
+    .card { /* Nouveau style pour les options encadrées */
+      background: #fff;
+      padding: 20px;
+      margin-top: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .top-bar {
+  background: #009579;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed; /* Fixer la barre en haut */
+  width: calc(100% - 200px); /* Largeur moins la largeur de la barre latérale */
+  left: 200px; /* Aligner à partir de la frontière de la barre latérale */
+  top: 0; /* Aligner en haut de la page */
+  z-index: 1000; /* Assurer que la barre soit au-dessus du contenu */
+}
+
+.content {
+  margin-left: 200px; /* Réserve l'espace pour la barre latérale */
+  width: calc(100% - 200px);
+  padding: 80px 20px 20px; /* Ajuster le padding pour s'adapter sous la barre fixée */
+}
+
+.sidebar {
+  width: 200px;
+  background: #009579;
+  color: #fff;
+  padding: 20px;
+  position: fixed; /* Fixer la barre latérale */
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 1000; /* Assurer que la barre soit au-dessus du contenu */
+}
+
+.sidebar .organization {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+}
+
+.sidebar ul li a:hover {
+  text-decoration: underline;
+}
+
+.top-bar .organization {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.top-bar .logout {
+  font-size: 14px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.options .welcome {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.options .welcome span {
+  color: #009579;
+}
+
+.options ul {
+  list-style: none;
+  display: flex;
+}
+
+.options ul li {
+  margin-right: 20px;
+}
+
+.options ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+}
+
+.options ul li a:hover {
+  color: #009579;
+}
+
+body {
+  min-height: 100vh;
+  width: 100%;
+  background: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden; /* Empêche le défilement horizontal */
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="organization">
+        Ministère de l'équipement et de l'eau
+      </div>
+      <ul>
+        <li><a href="{% url 'directeur_home' %}">Accueil</a></li>
+        <li><a href="{% url 'processed_requests' %}">Affichage des demandes</a></li>
+        <li><a href="{% url 'processing_requests' %}">Traitement des demandes</a></li>
+        <li><a href="{% url 'deconnexion' %}" class="logout">Déconnexion</a></li>
+      </ul>
+    </div>
+    <div class="content">
+      <div class="top-bar">
+        <div class="organization">
+          Direction Provinciale d'Errachidia
+        </div>
+      
+      <a href="{% url 'change_password' %}" class="logout">Changer le mot de passe</a>
+    
+      </div>
+      <div class="options">
+        <div class="welcome">
+          Bienvenue, <span>{{ user.username }}</span>, dans votre plateforme de gestion des congés
+        </div>
+        <div class="card"> <!-- Première option encadrée -->
+          <h2>Traitement des demandes de congé</h2>
+          <p>Ici vous pouvez traiter les demandes de congé soumises par les employés.</p>
+          <ul>
+            <li>
+              <a href="{% url 'processing_requests' %}" class="button">Accéder au traitement</a>
+            </li>
+          </ul>          
+        </div>
+        <div class="card"> <!-- Deuxième option encadrée -->
+          <h2>Affichage des demandes traitées</h2>
+          <p>Visualisez les demandes de congé déjà traitées par le département.</p>
+          <ul>
+            <li>
+              <a href="{% url 'processed_requests' %}" class="button">Voir les demandes traitées</a>
+            </li>
+          </ul> 
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

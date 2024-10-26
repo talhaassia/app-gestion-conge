@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Demande de Congé</title>
+    <style>
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #fff; 
+            color: #333;
+            font-size: 14px;
+        }
+        .container { 
+            width: 100%; 
+            margin: auto; 
+            padding: 15px; 
+            box-sizing: border-box;
+        }
+        .header, .footer { 
+            text-align: center; 
+            margin-bottom: 15px; 
+        }
+        .header { 
+            margin-bottom: 15px;
+        }
+        .footer { 
+            margin-top: 15px; 
+        }
+        .header h1, .header h2, .header h3, .header h4 { 
+            margin: 0; 
+            font-weight: normal;
+        }
+        .header h1 { 
+            font-size: 18px; 
+        }
+        .header h2 { 
+            font-size: 16px; 
+        }
+        .header h3 { 
+            font-size: 14px; 
+        }
+        .header h4 { 
+            font-size: 12px; 
+        }
+        .content { 
+            margin: 15px 0; 
+        }
+        .content h1 { 
+            text-align: center; 
+            font-size: 16px; 
+            margin-bottom: 15px; 
+        }
+        .details p { 
+            margin: 3px 0; 
+            font-size: 14px; 
+        }
+        .signature-section { 
+            margin-top: 15px; 
+        }
+        .signature p { 
+            margin: 0; 
+            font-size: 14px; 
+            font-weight: bold; 
+        }
+        .signature .space { 
+            height: 30px; 
+            border-bottom: 1px solid #000; 
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Royaume du Maroc</h1>
+            <h2>Ministère de l'Équipement et de l'Eau</h2>
+            <h3>Direction Provinciale de la province d'Errachidia</h3>
+            <h4>Region Daraa Tafilalet</h4>
+        </div>
+        <div class="content">
+            <h1>Demande de Congé</h1>
+            <div class="details">
+                <p><strong>Nom:</strong> {{ employee.nom }}</p>
+                <p><strong>Prénom:</strong> {{ employee.prenom }}</p>
+                <p><strong>CIN:</strong> {{ employee.cin }}</p>
+                <p><strong>Date de Début:</strong> {{ leave_request.date_debut }}</p>
+                <p><strong>Date de Fin:</strong> {{ leave_request.date_fin }}</p>
+                <p><strong>Type de Congé:</strong> {{ leave_request.type_conge }}</p>
+                <p><strong>Motif:</strong> {{ leave_request.motif }}</p>
+                <p><strong>Statut:</strong> {{ leave_request.statut }}</p>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="signature-section">
+                <div class="signature">
+                    <p>Signature de l'Employé:</p>
+                    <div class="space"></div>
+                </div>
+                <div class="signature">
+                    <p>Signature et Cachet du Directeur:</p>
+                    <div class="space"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
